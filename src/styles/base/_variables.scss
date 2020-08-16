@@ -1,0 +1,28 @@
+$primary: #1D3557;
+$primary-light: #334D72;
+$light: #E5EAF1;
+
+$max-width: 500px;
+
+// MIXINS
+
+@mixin fixed-position-left ($left: 0) {
+    left: $left;
+
+    @media screen and (min-width: calc(#{$max-width} + 1px)) {
+        left: calc((100vw - #{$max-width})/2);
+    }
+}
+
+@mixin fixed-position-right ($right: 0) {
+    right: $right;
+
+    @media screen and (min-width: calc(#{$max-width} + 1px)) {
+        right: calc((100vw - #{$max-width})/2);
+    }
+}
+
+@mixin flex {
+    display: flex;
+    align-items: center;
+}

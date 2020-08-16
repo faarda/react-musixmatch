@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import "./styles/styles.scss";
+import { Provider } from 'react-redux'
+import store from './store'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import routes from './router'
 
-function App() {
+
+function App(props) {
+  useEffect(() => {
+    window.feather.replace();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Switch>
+            {routes.map(route => route.path ? 
+            <Route path={route.path} exact={true} key={route.name} component={route.component} /> 
+            : <Route key={route.name} component={route.component} />)}
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
   );
 }
+
 
 export default App;
