@@ -1,0 +1,21 @@
+.mm-lyrics{
+    background: $primary;
+    color: $light;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 2rem;
+    margin: 1.5rem 0;
+    width: 100%;
+    padding-top: 125%;
+    position: relative;
+
+    &__text{
+        font-weight: 700;
+        font-size: 2.2rem;
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        max-width: calc(100% - 4rem);
+    }
+}

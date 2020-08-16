@@ -7,10 +7,6 @@ import routes from './router'
 
 
 function App(props) {
-  useEffect(() => {
-    window.feather.replace();
-  }, []);
-
   return (
     <Provider store={store}>
       <Router>

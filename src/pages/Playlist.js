@@ -10,7 +10,9 @@ function Playlist(props) {
     return (
         <div>
             <Header />
-            {playlist.map(song => <h1>{song.title}</h1>)}
+            <main className="mm-main">
+                {playlist.map(song => <h1>{song.title}</h1>)}
+            </main>
         </div>
     )
 }

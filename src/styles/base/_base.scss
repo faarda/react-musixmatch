@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
 
 
 * {
@@ -20,8 +20,14 @@ body {
     font-family: 'Noto Sans JP', sans-serif;
     color: $primary-light;
     font-weight: 400;
-    height: 100%;
+    height: 100vh;
+    // max-height: 100%;
     max-width: $max-width;
     overflow: hidden;
     margin: 0 auto;
+}
+
+.mm-main{
+    padding: 2.5rem;
+    padding-top: 7.5rem;
 }

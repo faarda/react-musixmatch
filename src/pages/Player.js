@@ -1,11 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../store/actionTypes'
+import Header from '../components/Header'
+import SongPlayer from '../components/SongPlayer'
+
 
 function Player(props) {
     return (
         <div>
-            {JSON.stringify(props.playlist[0])}
+            <Header />
+            <main className="mm-main">
+                <div className="mm-lyrics">
+                    <span className="mm-lyrics__text">
+                        She got the, mm, brown eyes, caramel thighs
+                    </span>
+                </div>
+                <SongPlayer />
+                {/* {JSON.stringify(props.playlist[0])} */}
+            </main>
         </div>
     )
 }

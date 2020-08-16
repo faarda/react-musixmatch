@@ -17,6 +17,16 @@
     &__back{
         cursor: pointer;
         margin-right: 1rem;
+        outline: none;
+        border: none;
+        background: transparent;
+        color: $primary-light;
+
+        .feather{
+            height: 2rem;
+            width: 2rem;
+            display: block;
+        }
     }
 
     &__title{
@@ -32,6 +42,14 @@
 
         span{
             font-size: 1.2rem;
+        }
+    }
+
+    &__right{
+        color: $primary-light;
+
+        .active{
+            color: $primary;
         }
     }
 }
