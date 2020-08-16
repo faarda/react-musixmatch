@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useLocation, useHistory, Link } from 'react-router-dom'
 
-function Header() {
+function Header({song = {}}) {
     let location = useLocation();
     const path = location.pathname;
     let isPlaylist = path == '/playlist';
@@ -27,8 +27,8 @@ function Header() {
 
                 {!isPlaylist && (
                     <div className="mm-header__title">
-                        <h4>South of the border</h4>
-                        <span>Ed Sheeran</span>
+                        <h4>{song.title}</h4>
+                        <span>{song.artiste}</span>
                     </div>
                     )}
             </div>

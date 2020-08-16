@@ -9,7 +9,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.PLAY:
             return actions.play(state, action.payload)
         case actionTypes.PAUSE:
-            return actions.pause(state, action.pause)
+            return actions.pause(state, action.payload)
+        case actionTypes.SET_ID:
+                return actions.setId(state, action.payload)
         default:
             return state
     }

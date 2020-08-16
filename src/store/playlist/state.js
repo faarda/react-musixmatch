@@ -1,36 +1,40 @@
 export default {
     playlist: [
         {
-            title: "Perfect",
-            artiste: "Ed sheeran",
+            title: 'Perfect',
+            artiste: 'Ed Sheeran',
             musicMatchId: null,
             isPlaying: false,
             pausedAt: 0,
             lyrics: null,
+            albulm: '÷'
         },
         {
-            title: "South of the border",
-            artiste: "Ed sheeran",
+            title: 'South of the Border',
+            artiste: 'Ed Sheeran feat. Camila Cabello & Cardi B',
             musicMatchId: null,
             isPlaying: true,
             pausedAt: 0,
             lyrics: null,
+            albulm: 'No.6 Collaborations Project',
         },
         {
-            title: "Put it all on me",
-            artiste: "Ed sheeran",
+            title: "Put It All On Me",
+            artiste: "Ed Sheeran feat. Ella Mai",
             musicMatchId: null,
             isPlaying: false,
             pausedAt: 0,
             lyrics: null,
+            albulm: 'No.6 Collaborations Project'
         },
         {
-            title: "Barcelona",
-            artiste: "Ed sheeran",
+            title: 'Barcelona',
+            artiste: 'Ed Sheeran',
             musicMatchId: null,
             isPlaying: false,
             pausedAt: 0,
             lyrics: null,
+            albulm: '÷'
         }
     ],
     currentlyPlaying: null
