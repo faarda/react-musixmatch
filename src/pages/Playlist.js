@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import actions from '../store/actionTypes'
 
 import Header from '../components/Header'
+import Song from '../components/Song'
 
 function Playlist(props) {
     const {playlist, currentlyPlaying} = props
@@ -11,7 +12,9 @@ function Playlist(props) {
         <div>
             <Header />
             <main className="mm-main">
-                {playlist.map(song => <h1>{song.title}</h1>)}
+                <ul className="mm-playlist">
+                    {playlist.map(song => <Song song={song} />)}
+                </ul>
             </main>
         </div>
     )

@@ -1,0 +1,34 @@
+.mm-playlist{
+    list-style: none;
+
+    &__song{
+        @include flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        cursor: pointer;
+
+        &__info{
+            h4{
+                font-weight: 500;
+                font-size: 1.4rem;
+            }
+
+            span{
+                font-size: 1.1rem;
+            }
+        }
+
+        &__action{
+            background: transparent;
+            color: $primary-light;
+            border: none;
+            outline: none;
+
+            .feather{
+                width: 2rem;
+                height: 2rem;
+                stroke-width: 1;
+            }
+        }
+    }
+}

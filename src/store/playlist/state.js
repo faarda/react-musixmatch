@@ -12,7 +12,7 @@ export default {
             title: "South of the border",
             artiste: "Ed sheeran",
             musicMatchId: null,
-            isPlaying: false,
+            isPlaying: true,
             pausedAt: 0,
             lyrics: null,
         },
