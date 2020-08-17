@@ -6,14 +6,14 @@ import Header from '../components/Header'
 import Song from '../components/Song'
 
 function Playlist(props) {
-    const {playlist, currentlyPlaying} = props
+    const {playlist, currentlyPlaying, showing} = props
 
     return (
-        <div>
+        <div style={{display: showing ? 'block' : 'none'}}>
             <Header />
             <main className="mm-main">
                 <ul className="mm-playlist">
-                    {playlist.map(song => <Song song={song} />)}
+                    {playlist.map(song => <Song song={song} key={song.title} />)}
                 </ul>
             </main>
         </div>

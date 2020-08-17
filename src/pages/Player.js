@@ -7,22 +7,41 @@ import Lyrics from '../components/Lyrics'
 import createState from '../hooks/createState'
 
 
-
-function Player({playlist, currentlyPlaying}) {
+function Player({playlist, currentlyPlaying, play, pause, showing}) {
     let playingNow = currentlyPlaying || 0;
     const [state, setState] = createState({
         playingNow,
         song: playlist[playingNow]
     });
 
-    console.log(state)
+    const next = () => {
+        const nextSongId = state.playingNow < playlist.length - 1 ? state.playingNow + 1 : 0;
+
+        setState.playingNow(nextSongId);
+        play(nextSongId);
+
+         // brute force isPlaying true
+        setState.song({...playlist[nextSongId], isPlaying: true});
+    }
+
+    const prev = () => {
+        const prevSongId = state.playingNow === 0  ? playlist.length - 1 : state.playingNow - 1;
+
+        setState.playingNow(prevSongId);
+        play(prevSongId);
+
+        // brute force isPlaying true
+        setState.song({...playlist[prevSongId], isPlaying: true});
+
+        // return playlist[prevSongId];
+    }
+
     return (
-        <div>
+        <div style={{display: showing ? 'block' : 'none'}}>
             <Header song={state.song} />
             <main className="mm-main">
                 <Lyrics />
-                <SongPlayer song={state.song} />
-                {/* {JSON.stringify(props.playlist[0])} */}
+                <SongPlayer song={state.song} statePlay={play} statePause={pause} songId={state.playingNow} prev={prev} next={next} />
             </main>
         </div>
     )

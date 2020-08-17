@@ -13,7 +13,7 @@ export default {
             title: 'South of the Border',
             artiste: 'Ed Sheeran feat. Camila Cabello & Cardi B',
             musicMatchId: null,
-            isPlaying: true,
+            isPlaying: false,
             pausedAt: 0,
             lyrics: null,
             albulm: 'No.6 Collaborations Project',
@@ -37,5 +37,6 @@ export default {
             albulm: '÷'
         }
     ],
-    currentlyPlaying: null
+    currentlyPlaying: null,
+    showing: 'player'
 }

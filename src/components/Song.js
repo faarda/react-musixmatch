@@ -1,4 +1,5 @@
 import React from 'react'
+import { PlayCircle, BarChart2} from 'react-feather'
 
 function Song({song}) {
     return (
@@ -10,8 +11,8 @@ function Song({song}) {
             <button className="mm-playlist__song__action">
                 {
                     song.isPlaying ?
-                    <span data-feather="bar-chart-2"></span> :
-                    <span data-feather="play-circle"></span>
+                    <BarChart2 className="feather" /> :
+                    <PlayCircle className="feather" />
                 }
             </button>
         </li>

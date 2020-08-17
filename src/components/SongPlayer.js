@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import createState from '../hooks/createState'
+import { Play, Pause, SkipBack, SkipForward } from 'react-feather';
 
 const getSrc = (song) => {
     return `${song.split(" ").map(piece => piece.toLowerCase()).join("-")}.mp3`;
@@ -35,56 +36,124 @@ const formatTime = (time) => {
     }
 }
 
-function SongPlayer({song}) {
+function SongPlayer({song, statePlay, statePause, songId, prev, next}) {
     const [state, setState] = createState({
         duration: 0,
         currentTime: song.pausedAt || 0,
         progress: 0,
         src: "",
-        audio: null
+        audio: null,
+        isPlaying: song.isPlaying
     });
 
     useEffect(() => {
-        window.feather.replace();
-    }, []);
+        // console.log(state)
+        // console.log('ran')
+        // console.log(songId)
+        // console.log(song)
+        if(!state.isPlaying){
+            const src = getSrc(song.title);
+            // console.log(src)
+            const audio = new Audio(`/songs/${src}`);
+    
+            audio.addEventListener('loadedmetadata', e => {
+                const duration = e.path[0].duration;
+                const currentTime = e.path[0].currentTime;
+                const progress = (currentTime/duration)*100;
+    
+                setState.currentTime(currentTime);
+                setState.duration(duration);
+                setState.progress(progress);
+                setState.audio(audio);
+                setState.src(src);
+                setState.isPlaying(song.isPlaying);
+    
+                // console.log(song);
+    
+                if(song.isPlaying){
+                    audio.play();
+                }
+            }); 
+    
+            audio.addEventListener('timeupdate', e => {
+                const currentTime = e.path[0].currentTime;
+                const duration = e.path[0].duration;
+                const progress = (currentTime/duration)*100;
+    
+                setState.currentTime(currentTime);
+                setState.progress(progress);
+            });
+    
+            return () => {
+                audio.removeEventListener('timeupdate', () => {});
+                audio.removeEventListener('loadedmetadata', () => {});
+            }
+        }
+    }, [songId]);
 
-    useEffect(() => {
-        const src = getSrc(song.title);
-        const audio = new Audio(`/songs/${src}`);
+    const playPause = (id = songId) => {
+        // console.log(id);
+        if(state.isPlaying){
+            state.audio.pause()
+            setState.isPlaying(false)
+            statePause(id)
 
-        audio.addEventListener('loadedmetadata', e => {
-            const duration = e.path[0].duration;
+            // todo: update pausedAt on state
+        }else{
+            state.audio.play()
+            setState.isPlaying(true)
+            statePlay(id)
+        }
+    }
 
-            console.log(duration)
-        }); 
+    const updateProgress = (e) => {
+        const target = e.currentTarget;
+        const offset = target.getBoundingClientRect();
+        const x = e.pageX - offset.left;
 
-        console.log(audio.duration);
+        state.audio.currentTime = ( parseFloat( x ) / parseFloat( target.offsetWidth) ) * state.duration;
+    }
 
-        console.log(audio);
+    const goPrev = () => {
+        if(state.isPlaying){
+            playPause(songId);
+        }
 
+        prev();
+        // song = newSong;
+    }
 
-    }, [song]);
+    const goNext = () => {
+        if(state.isPlaying){
+            playPause(songId);
+            // console.log('ran x')
+        }
+
+        next();
+        console.log('next ran')
+        // song = newSong;
+    }
 
     return (
         <div className="mm-player">
             <div className="mm-player__indicator">
-                <div className="mm-player__indicator__progress">
-                    <div className="mm-player__indicator__progress__inner" style={{width: '40%'}}></div>
+                <div className="mm-player__indicator__progress" onClick={updateProgress}>
+                    <div className="mm-player__indicator__progress__inner" style={{width: `${state.progress}%`}}></div>
                 </div>
                 <div className="mm-player__indicator__time">
-                    <span>0:00</span>
-                    <span>4:12</span>
+                    <span>{formatTime(state.currentTime)}</span>
+                    <span>{formatTime(state.duration)}</span>
                 </div>
             </div>
             <div className="mm-player__controls">
-                <button className="mm-player__controls__prev-next">
-                    <span data-feather="skip-back"></span>
+                <button className="mm-player__controls__prev-next" onClick={() => goPrev()}>
+                    <SkipBack />
                 </button>
-                <button className="mm-player__controls__play-pause">
-                    <span data-feather="play"></span>
+                <button className="mm-player__controls__play-pause" onClick={() => playPause()}>
+                    {state.isPlaying ? <Pause /> : <Play /> }  
                 </button>
-                <button className="mm-player__controls__prev-next">
-                    <span data-feather="skip-forward"></span>
+                <button className="mm-player__controls__prev-next" onClick={() => goNext()}>
+                    <SkipForward />
                 </button>
             </div>
         </div>

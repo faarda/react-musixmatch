@@ -29,6 +29,9 @@ export default {
         
         return {...state, playlist: newPlaylist, currentlyPlaying: id };
     },
+    setShowing: (state, payload) => {
+        return {...state, showing: payload};
+    },
     setId: (state, {id, musicMatchId}) => {
         const playlist = [...state.playlist];
         playlist[id].musicMatchId = musicMatchId;
@@ -38,18 +41,29 @@ export default {
     fetchIds: (playlist) => {
         return (dispatch) => {
             playlist.forEach((song, id) => {
-                const url = encodeURI(`https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.track.get?format=json&q_artist=${song.artiste}&q_track=${song.title}&apikey=${process.env.REACT_APP_MUSIXMATCH_API_KEY}`)
-                axios.get(url)
-                    .then(res => {
-                        const musicMatchId = res.data.message.body.track.track_id;
-                        dispatch({
-                            type: actionTypes.SET_ID,
-                            payload: {id, musicMatchId}
-                        });
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
+                // console.log('should fetch id')
+                const localId = `${song.title.split(" ").map(piece => piece.toLowerCase()).join("-")}-${song.artiste.split(" ").map(piece => piece.toLowerCase()).join("-")}`;
+                let musicMatchId = localStorage.getItem(`musix-${localId}-id`);
+                if(musicMatchId){
+                    dispatch({
+                        type: actionTypes.SET_ID,
+                        payload: {id, musicMatchId}
+                    });
+                }else {
+                    const url = encodeURI(`https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.track.get?format=json&q_artist=${song.artiste}&q_track=${song.title}&apikey=${process.env.REACT_APP_MUSIXMATCH_API_KEY}`)
+                    axios.get(url)
+                        .then(res => {
+                            musicMatchId = res.data.message.body.track.track_id;
+                            localStorage.setItem(`musix-${localId}-id`, musicMatchId);
+                            dispatch({
+                                type: actionTypes.SET_ID,
+                                payload: {id, musicMatchId}
+                            });
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                }
             });
         }
     }

@@ -11,7 +11,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.PAUSE:
             return actions.pause(state, action.payload)
         case actionTypes.SET_ID:
-                return actions.setId(state, action.payload)
+            return actions.setId(state, action.payload)
+        case actionTypes.SET_SHOWING:
+            return actions.setShowing(state, action.payload)
         default:
             return state
     }

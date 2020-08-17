@@ -47,6 +47,10 @@
 
     &__right{
         color: $primary-light;
+        outline: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
 
         .active{
             color: $primary;
