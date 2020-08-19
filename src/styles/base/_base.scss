@@ -38,12 +38,13 @@ body {
 
     &__overlay{
         position: absolute;
-        top: 6rem;
+        top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
+        // bottom: -8re;
+        height: 100%;
         // margin-top: 7.5rem;
-        background: rgba($light, .8);
+        background: rgba($light, .85);
         color: $primary-lighter;
         display: flex;
         flex-direction: column;
@@ -67,4 +68,42 @@ body {
 
 #root, .App{
     height: 100%;
+}
+
+.link{
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+
+    &::after{
+        position: absolute;
+        height: 0px;
+        width: 100%;
+        background: $light;
+        content: '';
+        left: 0;
+        bottom: 0;
+        z-index: -1;
+        transition: .4s ease-in-out all;
+        opacity: 0;
+    }
+
+    &:hover::after{
+        height: 6px;
+        bottom: 2px;
+        opacity: 1;
+    }
+
+
+    &--dark{
+        color: $primary-lighter;
+    }
+
+    &--light{
+        color: darken($light, 15);
+
+        &::after{
+            background: $primary-lighter;
+        }
+    }
 }

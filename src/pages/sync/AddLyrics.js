@@ -21,7 +21,11 @@ function AddLyrics({syncState, setSyncState, formFilled, saveLyrics}) {
             </Header>
             <div className='mm-main'>
                 <form className='mm-form' onSubmit={saveLyrics}>
-                    <div className='mm-form__group'>
+                    <p className='mm-info__banner'>
+                        <span className='icon'>👌🏽</span>
+                        Just copy the lyrics of the song you want to sync from Google
+                    </p>
+                    <div className='mm-form__group mt-1'>
                         <label className='mm-form__label'>Choose Song</label>
                         <select className='mm-form__input' value={syncState.songId} onChange={(e) => setSyncState.songId(e.target.value)}>
                             <option value=''>--- Select ---</option>

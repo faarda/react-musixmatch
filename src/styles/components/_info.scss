@@ -1,0 +1,56 @@
+.mm-info{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    @include fixed-position-left;
+    @include fixed-position-right;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 500;
+    padding: 2.5rem;
+
+    p{
+        margin: 1rem 0;
+    }
+
+    ul{
+        list-style: none;
+        margin: 1rem 0;
+
+        li{
+            margin: 0 0 1.2rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon{
+            // display: inline-block;
+            background: $light;
+            height: 3rem;
+            width: 3rem;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            margin-right: .7rem;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+    }
+
+    &__banner{
+        background: $light;
+        padding: 1.5rem;
+        margin-bottom: .5rem;
+        border-radius: 1rem;
+        display: flex;
+
+        .icon{
+            margin-right: .5rem;
+            display: inline-block;
+            font-size: 1.6rem;
+        }
+    }
+}

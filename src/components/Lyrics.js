@@ -3,6 +3,8 @@ import axios from 'axios'
 import createState from '../hooks/createState';
 import {useDispatch } from 'react-redux'
 import actions from '../store/actionTypes'
+import { ExternalLink } from 'react-feather'
+import { Link } from 'react-router-dom'
 
 function Lyrics({song, currentTime, songId}) {
     const dispatch = useDispatch();
@@ -52,6 +54,10 @@ function Lyrics({song, currentTime, songId}) {
 
     return (
         <div className="mm-lyrics">
+            <p className='mm-lyrics__banner'>
+                <Link to='/sync' className='link link--light ml-1'>Sync Lyrics</Link>
+                <a href='https://github.com/faarda/react-musixmatch' className='link link--light ml-1' target='_blank'>Github <ExternalLink size={12} /></a>
+            </p>
             {
                 state.loading ? 
                 <p>Loading...</p> : (

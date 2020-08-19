@@ -30,4 +30,16 @@
         color: $primary-lighter;
         // padding-top: 120%;
     }
+
+    &__banner{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        top: 1.5rem;
+        left: 2rem;
+        right: 2rem;
+        z-index: 200;
+        font-size: 1.2rem;
+    }
 }

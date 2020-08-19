@@ -150,12 +150,15 @@ function SyncLyrics({lyricsArray, songId, setSyncState}) {
                     }
                 </div>
                 <MiniPlayer state={state} setState={setState} startCountDown={startCountDown} />
-                {/* <div className='mm-main__overlay' style={{display: state.at === 'start' ? 'flex' : 'none'}}>
+                <div className='mm-main__overlay' style={{display: state.at === 'start' ? 'flex' : 'none'}}>
                     {
                         state.duration < 0 ?
-                        <p className='small-text'>
-                            Loading Song...
-                        </p> :
+                        <>
+                            <div className='mm-spinner'></div>
+                            <p className='small-text'>
+                                Loading Song...
+                            </p> 
+                        </>:
                         <>
                             <h1>
                                 {state.countdown}
@@ -182,7 +185,7 @@ function SyncLyrics({lyricsArray, songId, setSyncState}) {
                             </button>
                         </>
                     }
-                </div> */}
+                </div>
             </div>
         </>
     )

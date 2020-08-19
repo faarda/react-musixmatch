@@ -1,14 +1,15 @@
-.sp-spinner {
-    width: 2rem;
-    height: 2rem;
+.mm-spinner {
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
-    border: 0.3rem solid rgba(#bec4e7, 0.4);
+    border: 0.3rem solid rgba(#bec4e7, 0.9);
     border-top-color: currentColor;
     animation: 1s spin infinite linear;
+    margin-bottom: 1rem;
+}
 
-    &--lg{
-        width: 4rem;
-        height: 4rem;
-        border-width: .5rem;
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }

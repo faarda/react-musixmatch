@@ -9,6 +9,7 @@
     color: $light;
     transition: .2s ease-in-out all;
     cursor: pointer;
+    // width: 100%;
 
     .next{
         transition: .2s ease-in-out all;
@@ -31,6 +32,11 @@
 
     &--square{
         border-radius: 1rem;
+    }
+
+    &--round{
+        border-radius: 10rem;
+        padding: 1.5rem 4rem;
     }
 
     &:disabled{
