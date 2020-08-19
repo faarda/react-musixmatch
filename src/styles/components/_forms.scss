@@ -27,6 +27,7 @@
         font-size: 1.4rem;
         -webkit-appearance: none;
         transition: .3s ease-in-out all;
+        background: #fff;
 
         &::placeholder{
             color: $primary-light;
@@ -38,7 +39,7 @@
     }
 
     textarea.mm-form__input{
-        height: 12rem;
+        height: 15rem;
         font-family: inherit;
         white-space: pre-line;
     }

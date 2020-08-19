@@ -2,7 +2,6 @@ import React from 'react'
 import AddLyrics from './sync/AddLyrics'
 import createState from '../hooks/createState'
 import SyncLyrics from './sync/SyncLyrics';
-import southOfTheBorder from './sync/south-of-the-border'
 
 function Syncer() {
     const [state, setState] = createState({
@@ -24,7 +23,7 @@ function Syncer() {
     }
 
     return (
-        <div>
+        <div style={{height: '100%'}}>
             {
                 state.showing === 'add-lyrics' ?
                 <AddLyrics syncState={state} setSyncState={setState} formFilled={state.songId && state.rawLyrics} saveLyrics={saveLyrics}/> :

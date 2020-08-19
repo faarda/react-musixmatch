@@ -1,6 +1,3 @@
-import axios from 'axios'
-import actionTypes from '../actionTypes'
-
 export default {
     setLyrics: (state, {id, lyrics}) => {
         const playlist = [...state.playlist];

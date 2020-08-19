@@ -38,7 +38,7 @@ function Player({playlist, currentlyPlaying, play, pause, showing, setAudio, set
     }
 
     return (
-        <div style={{display: showing ? 'block' : 'none'}}>
+        <div style={{display: showing ? 'block' : 'none', height: '100%'}}>
             <Header song={state.song} />
             <main className="mm-main">
                 <Lyrics currentTime={state.currentTime} song={state.song} songId={state.playingNow} />

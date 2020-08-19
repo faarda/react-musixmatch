@@ -121,7 +121,8 @@ function SyncLyrics({lyricsArray, songId, setSyncState}) {
             <Header>
                 <div className="mm-header__left">
                     <div className="mm-header__title">
-                        <h4>Sync Lyrics</h4>
+                        <h4>{song.title}</h4>
+                        <span>{song.artiste}</span>
                     </div> 
                 </div>
                 <Link to='/' className='mm-header__right'>
@@ -129,11 +130,6 @@ function SyncLyrics({lyricsArray, songId, setSyncState}) {
                 </Link>
             </Header>
             <div className='mm-main'>
-                <div className="mm-header__title">
-                    <h5>{song.title}</h5>
-                    <span>{song.artiste}</span>
-                </div> 
-
                 <div className="mm-lyrics mm-lyrics--light">
                     <span className="mm-lyrics__text">
                         {lyricsArray[state.currentLine]}
@@ -154,15 +150,18 @@ function SyncLyrics({lyricsArray, songId, setSyncState}) {
                     }
                 </div>
                 <MiniPlayer state={state} setState={setState} startCountDown={startCountDown} />
-                <div className='mm-main__overlay' style={{display: state.at === 'start' ? 'flex' : 'none'}}>
+                {/* <div className='mm-main__overlay' style={{display: state.at === 'start' ? 'flex' : 'none'}}>
                     {
                         state.duration < 0 ?
                         <p className='small-text'>
                             Loading Song...
                         </p> :
-                        <h1>
-                            {state.countdown}
-                        </h1>
+                        <>
+                            <h1>
+                                {state.countdown}
+                            </h1>
+                            <p className='mt-1'>Get ready to sync the lyrics</p>
+                        </>
                     }
                 </div>
                 <div className='mm-main__overlay' style={{display: state.at === 'end' ? 'flex' : 'none'}}>
@@ -183,7 +182,7 @@ function SyncLyrics({lyricsArray, songId, setSyncState}) {
                             </button>
                         </>
                     }
-                </div>
+                </div> */}
             </div>
         </>
     )

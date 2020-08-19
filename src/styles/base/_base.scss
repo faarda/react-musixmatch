@@ -31,6 +31,10 @@ body {
     padding: 2.5rem;
     padding-top: 7.5rem;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 3rem);
+    // box-sizing: content-box;
 
     &__overlay{
         position: absolute;
@@ -59,4 +63,8 @@ body {
 
 .mt-1{
     margin-top: 1rem;
+}
+
+#root, .App{
+    height: 100%;
 }

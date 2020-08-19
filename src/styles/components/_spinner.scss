@@ -1,0 +1,14 @@
+.sp-spinner {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 0.3rem solid rgba(#bec4e7, 0.4);
+    border-top-color: currentColor;
+    animation: 1s spin infinite linear;
+
+    &--lg{
+        width: 4rem;
+        height: 4rem;
+        border-width: .5rem;
+    }
+}
