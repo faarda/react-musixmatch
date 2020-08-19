@@ -3,7 +3,7 @@ import createState from '../hooks/createState'
 import { Play, Pause, SkipBack, SkipForward } from 'react-feather';
 import { getSrc, formatTime} from './PlayerFunctions'
 
-function SongPlayer({song, storePlay, storePause, songId, prev, next, setAudio, setPausedAt, updateCurrentTime}) {
+function SongPlayer({song, storePlay, storePause, songId, prev, next, setAudio, setPausedAt, updateCurrentTime, updateLoading}) {
     const [state, setState] = createState({
         duration: 0,
         currentTime: song.pausedAt || 0,
@@ -33,6 +33,8 @@ function SongPlayer({song, storePlay, storePause, songId, prev, next, setAudio, 
                 audio.play();
             }
 
+            updateLoading();
+
         }else{
             const src = getSrc(song.title);
             audio = new Audio(`/songs/${src}`);
@@ -49,7 +51,8 @@ function SongPlayer({song, storePlay, storePause, songId, prev, next, setAudio, 
                 if(song.isPlaying){
                     audio.play();
                 }
-    
+
+                updateLoading();
             }); 
         }
 

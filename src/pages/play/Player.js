@@ -28,11 +28,6 @@ function Player({playlist, currentlyPlaying, play, pause, showing, setAudio, set
 
     }, [currentlyPlaying])
 
-    useEffect(() => {
-        if(state.song){
-            setState.loading(false);
-        }
-    }, [state.song]);
 
     const next = () => {
         const nextSongId = state.playingNow < playlist.length - 1 ? state.playingNow + 1 : 0;
@@ -49,7 +44,7 @@ function Player({playlist, currentlyPlaying, play, pause, showing, setAudio, set
             <Header song={state.song} />
             <main className="mm-main">
                 <Lyrics currentTime={state.currentTime} song={state.song} songId={state.playingNow} />
-                <SongPlayer song={state.song} storePlay={play} storePause={pause} songId={state.playingNow} setAudio={setAudio} setPausedAt={setPausedAt} prev={prev} next={next} updateCurrentTime={(time) => setState.currentTime(time)} />
+                <SongPlayer song={state.song} storePlay={play} storePause={pause} songId={state.playingNow} setAudio={setAudio} setPausedAt={setPausedAt} prev={prev} next={next} updateLoading={() => setState.loading(false)} updateCurrentTime={(time) => setState.currentTime(time)} />
             </main>
             <div className='mm-main__overlay' style={{display: state.loading ? 'flex' : 'none'}}>
                 <div className='mm-spinner'></div>
