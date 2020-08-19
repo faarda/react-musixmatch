@@ -7,19 +7,24 @@ import Lyrics from '../../components/Lyrics'
 import createState from '../../hooks/createState'
 
 
-function Player({playlist, currentlyPlaying, play, pause, showing, setPlayer}) {
-    let playingNow = currentlyPlaying || 0;
-    
+function Player({playlist, currentlyPlaying, play, pause, showing, setAudio, setPausedAt}) {  
     const [state, setState] = createState({
-        playingNow,
-        song: playlist[playingNow]
+        playingNow: currentlyPlaying,
+        song: playlist[currentlyPlaying],
+        currentTime: 0
     });
 
     useEffect(() => {
-        if(currentlyPlaying){
-            setState.playingNow(currentlyPlaying);
-            setState.song(playlist[currentlyPlaying]);
-        }
+        setState.playingNow(currentlyPlaying);
+        setState.song(playlist[currentlyPlaying]);
+
+        // pause every other song when currentlyPlaying is changed
+        playlist.forEach((song, id) => {
+            if(song.audio && currentlyPlaying !== id){
+                song.audio.pause();
+            }
+        })
+
     }, [currentlyPlaying])
 
     const next = () => {
@@ -36,8 +41,8 @@ function Player({playlist, currentlyPlaying, play, pause, showing, setPlayer}) {
         <div style={{display: showing ? 'block' : 'none'}}>
             <Header song={state.song} />
             <main className="mm-main">
-                <Lyrics />
-                <SongPlayer song={state.song} statePlay={play} statePause={pause} songId={state.playingNow} setPlayer={setPlayer} prev={prev} next={next} />
+                <Lyrics currentTime={state.currentTime} song={state.song} songId={state.playingNow} />
+                <SongPlayer song={state.song} storePlay={play} storePause={pause} songId={state.playingNow} setAudio={setAudio} setPausedAt={setPausedAt} prev={prev} next={next} updateCurrentTime={(time) => setState.currentTime(time)} />
             </main>
         </div>
     )
@@ -54,7 +59,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         play: (id) => dispatch({ type: actions.PLAY, payload: {id}}),
         pause: (id) => dispatch({ type: actions.PAUSE, payload: {id}}),
-        setPlayer: (player) => dispatch({ type: actions.SET_PLAYER, payload: {player}})
+        setAudio: (id, audio) => dispatch({ type: actions.SET_AUDIO, payload: {id, audio}}),
+        setPausedAt: (id, time) => dispatch({type: actions.SET_PAUSED_AT, payload: {id, time}})
     }
 }
 

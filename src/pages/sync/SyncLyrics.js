@@ -33,7 +33,6 @@ function SyncLyrics({lyricsArray, songId, setSyncState}) {
         const syncedLyrics = [...state.syncedLyrics, {start: startTime, end: endTime, lyrics: lyricsText}];
         setState.syncedLyrics(syncedLyrics);
         setState.startTime(endTime);
-        console.log(syncedLyrics);
     }
 
     const prevLine = () => {

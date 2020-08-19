@@ -50,7 +50,7 @@ function MiniPlayer({state, setState}) {
             audio.removeEventListener('loadedmetadata', () => {});
             audio.removeEventListener('pause', () => {});
             audio.removeEventListener('play', () => {});
-            audio.removeEventListener('end', () => {});
+            audio.removeEventListener('ended', () => {});
         }
     }, [])
 

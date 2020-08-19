@@ -20,7 +20,6 @@ function Syncer() {
             setState.showing('sync-lyrics')
             const lyricsArray = ['...', ...state.rawLyrics.split('\n'), 'The end']
             setState.lyricsArray(lyricsArray);
-            console.log(lyricsArray)
         }
     }
 

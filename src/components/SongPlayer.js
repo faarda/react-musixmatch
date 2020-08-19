@@ -3,63 +3,89 @@ import createState from '../hooks/createState'
 import { Play, Pause, SkipBack, SkipForward } from 'react-feather';
 import { getSrc, formatTime} from './PlayerFunctions'
 
-function SongPlayer({song, statePlay, statePause, songId, prev, next, setPlayer}) {
+function SongPlayer({song, storePlay, storePause, songId, prev, next, setAudio, setPausedAt, updateCurrentTime}) {
     const [state, setState] = createState({
         duration: 0,
         currentTime: song.pausedAt || 0,
-        progress: 0,
-        src: "",
-        audio: null,
+        audio: song.audio,
         isPlaying: song.isPlaying
     });
 
     useEffect(() => {
-        const src = getSrc(song.title);
-        const audio = new Audio(`/songs/${src}`);
+        let audio, duration;
 
-        audio.addEventListener('loadedmetadata', e => {
-            const duration = e.path[0].duration;
-            const currentTime = e.path[0].currentTime;
-            const progress = (currentTime/duration)*100;
+        //retrieve audio from state if it exists else create a new instance
+        if(song.audio){
+            audio = song.audio;
+            duration = audio.duration;
 
-            setState.currentTime(currentTime);
             setState.duration(duration);
-            setState.progress(progress);
             setState.audio(audio);
-            setState.src(src);
-            setState.isPlaying(song.isPlaying);
+            
+            if(song.pausedAt > 0){
+                // setState.currentTime(song.currentTime)
+                audio.currentTime = song.pausedAt;
+            }else{
+                audio.currentTime = 0;
+            }
 
             if(song.isPlaying){
                 audio.play();
-                setPlayer(audio);
             }
 
-        }); 
+        }else{
+            const src = getSrc(song.title);
+            audio = new Audio(`/songs/${src}`);
+    
+            audio.addEventListener('loadedmetadata', e => {
+                duration = e.path[0].duration;
+    
+                setState.duration(duration);
+                setState.audio(audio);
+
+                // caching audio in state because of size
+                setAudio(songId, audio);
+    
+                if(song.isPlaying){
+                    audio.play();
+                }
+    
+            }); 
+        }
 
         audio.addEventListener('timeupdate', e => {
             const currentTime = e.path[0].currentTime;
-            const duration = e.path[0].duration;
-            const progress = (currentTime/duration)*100;
 
             setState.currentTime(currentTime);
-            setState.progress(progress);
+            updateCurrentTime(currentTime);
         });
 
         audio.addEventListener('ended', e  => {
-            setState.isPlaying(false);
-            goNext();
+            next();
         });
+
+        audio.addEventListener('pause', e => {
+            setState.isPlaying(false);
+        })
+
+        audio.addEventListener('play', e => {
+            setState.isPlaying(true);
+        })
 
         return () => {
             audio.removeEventListener('timeupdate', () => {});
             audio.removeEventListener('loadedmetadata', () => {});
+            audio.removeEventListener('pause', () => {});
+            audio.removeEventListener('play', () => {});
+            audio.removeEventListener('ended', () => {});
         }
     }, [song]);
 
     useEffect(() => {
-        // hack to see if playPause has been called
-        let run = false;
-        if(state.audio){ //check if theres an audio on the state
+        // Handles the spacebar key press
+
+        let run = false; // hack to see if playPause has been called
+        if(state.audio){
             document.body.addEventListener('keyup', (e) => {
                 //figure out why event is called multiple times and why the state is different at each point
                 if(e.keyCode === 32 && state.audio && !run){
@@ -74,19 +100,16 @@ function SongPlayer({song, statePlay, statePause, songId, prev, next, setPlayer}
         }
     }, [state])
 
-    const playPause = (id = songId) => {
-        // console.log(id);
+    const playPause = () => {
         if(state.isPlaying){
+            storePause(songId)
             state.audio.pause()
-            setState.isPlaying(false)
-            statePause(id)
 
-            // todo: update pausedAt on state
+            setPausedAt(songId, state.currentTime);
         }else{
+            storePlay(songId)
             state.audio.play()
-            setState.isPlaying(true)
-            statePlay(id)
-            setPlayer(state.audio);
+            // setPlayer(state.audio);
         }
     }
 
@@ -98,21 +121,21 @@ function SongPlayer({song, statePlay, statePause, songId, prev, next, setPlayer}
         state.audio.currentTime = ( parseFloat( x ) / parseFloat( target.offsetWidth) ) * state.duration;
     }
 
-    const goPrev = () => {
-        if(state.isPlaying){
-            playPause();
-        }
+    // const goPrev = () => {
+    //     if(state.isPlaying){
+    //         playPause();
+    //     }
 
-        prev();
-    }
+    //     prev();
+    // }
 
-    const goNext = () => {
-        if(state.isPlaying){
-            playPause();
-        }
+    // const goNext = () => {
+    //     if(state.isPlaying){
+    //         playPause();
+    //     }
 
-        next();
-    }
+    //     next();
+    // }
 
 
 
@@ -121,7 +144,7 @@ function SongPlayer({song, statePlay, statePause, songId, prev, next, setPlayer}
         <div className="mm-player">
             <div className="mm-player__indicator">
                 <div className="mm-player__indicator__progress" onClick={updateProgress}>
-                    <div className="mm-player__indicator__progress__inner" style={{width: `${state.progress}%`}}></div>
+                    <div className="mm-player__indicator__progress__inner" style={{width: `${(state.currentTime/state.duration)*100}%`}}></div>
                 </div>
                 <div className="mm-player__indicator__time">
                     <span>{formatTime(state.currentTime)}</span>
@@ -129,13 +152,13 @@ function SongPlayer({song, statePlay, statePause, songId, prev, next, setPlayer}
                 </div>
             </div>
             <div className="mm-player__controls">
-                <button className="mm-player__controls__prev-next" onClick={() => goPrev()}>
+                <button className="mm-player__controls__prev-next" onClick={() => prev()}>
                     <SkipBack />
                 </button>
                 <button className="mm-player__controls__play-pause" onClick={() => playPause()}>
                     {state.isPlaying ? <Pause /> : <Play /> }  
                 </button>
-                <button className="mm-player__controls__prev-next" onClick={() => goNext()}>
+                <button className="mm-player__controls__prev-next" onClick={() => next()}>
                     <SkipForward />
                 </button>
             </div>

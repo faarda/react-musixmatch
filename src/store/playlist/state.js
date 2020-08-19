@@ -5,7 +5,7 @@ export default {
             artiste: 'Ed Sheeran',
             isPlaying: false,
             pausedAt: 0,
-            lyrics: null,
+            lyrics: [],
             albulm: '÷',
             audio: null
         },
@@ -14,7 +14,7 @@ export default {
             artiste: 'Ed Sheeran feat. Camila Cabello & Cardi B',
             isPlaying: false,
             pausedAt: 0,
-            lyrics: null,
+            lyrics: [],
             albulm: 'No.6 Collaborations Project',
             audio: null
         },
@@ -23,7 +23,7 @@ export default {
             artiste: "Ed Sheeran feat. Ella Mai",
             isPlaying: false,
             pausedAt: 0,
-            lyrics: null,
+            lyrics: [],
             albulm: 'No.6 Collaborations Project',
             audio: null
         },
@@ -32,11 +32,11 @@ export default {
             artiste: 'Ed Sheeran',
             isPlaying: false,
             pausedAt: 0,
-            lyrics: null,
+            lyrics: [],
             albulm: '÷',
             audio: null
         }
     ],
-    currentlyPlaying: null,
+    currentlyPlaying: 0,
     showing: 'player'
 }
