@@ -26,11 +26,18 @@ export default {
                 return {...song, isPlaying: false}
             }
         });
+
+        if(state.player && !state.player.paused && state.currentlyPlaying !== id){
+            state.player.pause();
+        }
         
-        return {...state, playlist: newPlaylist, currentlyPlaying: id };
+        return {...state, playlist: newPlaylist, currentlyPlaying: id, player: null };
     },
     setShowing: (state, payload) => {
         return {...state, showing: payload};
+    },
+    setPlayer: (state, {player}) => {
+        return {...state, player: player}
     },
     setId: (state, {id, musicMatchId}) => {
         const playlist = [...state.playlist];

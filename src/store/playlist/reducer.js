@@ -14,6 +14,8 @@ const reducer = (state = initialState, action) => {
             return actions.setId(state, action.payload)
         case actionTypes.SET_SHOWING:
             return actions.setShowing(state, action.payload)
+        case actionTypes.SET_PLAYER:
+            return actions.setPlayer(state, action.payload)
         default:
             return state
     }

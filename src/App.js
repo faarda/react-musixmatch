@@ -1,24 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import "./styles/styles.scss";
-import { useSelector, useDispatch } from 'react-redux'
-import actions from './store/playlist/actions'
-import Player from './pages/Player'
-import Playlist from './pages/Playlist'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import routes from "./router";
 
 
 function App(props) {
-  const playlist = useSelector(state => {return {playlist: state.playlist, showing: state.showing}});
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(actions.fetchIds(playlist.playlist));
-  }, []);
-
   return (
+    <Router>
       <div className="App">
-        <Player showing={playlist.showing === 'player'} />
-        <Playlist showing={playlist.showing === 'playlist'} />
+        <Switch>
+          { routes.map(route => route.path ? 
+          <Route path={route.path} component={route.component} key={route.name} exact /> : 
+          <Route component={route.component} key={route.name} />)}
+        </Switch>
       </div>
+    </Router>
+    // <h1>Hello</h1>
   );
 }
 

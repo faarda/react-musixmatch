@@ -1,0 +1,48 @@
+.mm-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: none;
+    padding: 1.5rem 2rem;
+    background: $primary-light;
+    color: $light;
+    transition: .2s ease-in-out all;
+    cursor: pointer;
+
+    .next{
+        transition: .2s ease-in-out all;
+    }
+    
+    svg{
+        margin-left: .5rem;
+        height: 2rem;
+        width: 2rem;
+    }
+
+    &:hover,
+    &:active{
+        background: $primary;
+
+        .next{
+            margin-left: 1rem;
+        }
+    }
+
+    &--square{
+        border-radius: 1rem;
+    }
+
+    &:disabled{
+        background: $light;
+        color: $primary-lighter;
+        cursor: not-allowed;
+        touch-action: none;
+
+        &:hover{
+            .next{
+                margin-left: .5rem;
+            }
+        }
+    }
+}

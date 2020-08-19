@@ -30,4 +30,33 @@ body {
 .mm-main{
     padding: 2.5rem;
     padding-top: 7.5rem;
+    position: relative;
+
+    &__overlay{
+        position: absolute;
+        top: 6rem;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        // margin-top: 7.5rem;
+        background: rgba($light, .8);
+        color: $primary-lighter;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 200;
+
+        h1{
+            font-size: 5rem;
+        }
+    }
+}
+
+.ml-1{
+    margin-left: .5rem;
+}
+
+.mt-1{
+    margin-top: 1rem;
 }

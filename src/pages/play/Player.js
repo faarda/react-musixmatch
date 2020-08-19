@@ -1,39 +1,35 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import actions from '../store/actionTypes'
-import Header from '../components/Header'
-import SongPlayer from '../components/SongPlayer'
-import Lyrics from '../components/Lyrics'
-import createState from '../hooks/createState'
+import actions from '../../store/actionTypes'
+import Header from '../../components/Header'
+import SongPlayer from '../../components/SongPlayer'
+import Lyrics from '../../components/Lyrics'
+import createState from '../../hooks/createState'
 
 
-function Player({playlist, currentlyPlaying, play, pause, showing}) {
+function Player({playlist, currentlyPlaying, play, pause, showing, setPlayer}) {
     let playingNow = currentlyPlaying || 0;
+    
     const [state, setState] = createState({
         playingNow,
         song: playlist[playingNow]
     });
 
+    useEffect(() => {
+        if(currentlyPlaying){
+            setState.playingNow(currentlyPlaying);
+            setState.song(playlist[currentlyPlaying]);
+        }
+    }, [currentlyPlaying])
+
     const next = () => {
         const nextSongId = state.playingNow < playlist.length - 1 ? state.playingNow + 1 : 0;
-
-        setState.playingNow(nextSongId);
         play(nextSongId);
-
-         // brute force isPlaying true
-        setState.song({...playlist[nextSongId], isPlaying: true});
     }
 
     const prev = () => {
         const prevSongId = state.playingNow === 0  ? playlist.length - 1 : state.playingNow - 1;
-
-        setState.playingNow(prevSongId);
         play(prevSongId);
-
-        // brute force isPlaying true
-        setState.song({...playlist[prevSongId], isPlaying: true});
-
-        // return playlist[prevSongId];
     }
 
     return (
@@ -41,7 +37,7 @@ function Player({playlist, currentlyPlaying, play, pause, showing}) {
             <Header song={state.song} />
             <main className="mm-main">
                 <Lyrics />
-                <SongPlayer song={state.song} statePlay={play} statePause={pause} songId={state.playingNow} prev={prev} next={next} />
+                <SongPlayer song={state.song} statePlay={play} statePause={pause} songId={state.playingNow} setPlayer={setPlayer} prev={prev} next={next} />
             </main>
         </div>
     )
@@ -57,7 +53,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         play: (id) => dispatch({ type: actions.PLAY, payload: {id}}),
-        pause: (id) => dispatch({ type: actions.PAUSE, payload: {id}})
+        pause: (id) => dispatch({ type: actions.PAUSE, payload: {id}}),
+        setPlayer: (player) => dispatch({ type: actions.SET_PLAYER, payload: {player}})
     }
 }
 

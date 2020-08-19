@@ -3,5 +3,6 @@ export default {
     PAUSE: 'PAUSE',
     PLAY: 'PLAY',
     SET_ID: 'SET_ID',
-    SET_SHOWING: 'SET_SHOWING'
+    SET_SHOWING: 'SET_SHOWING',
+    SET_PLAYER: 'SET_PLAYER'
 };

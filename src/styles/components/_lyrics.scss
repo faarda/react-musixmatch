@@ -17,5 +17,12 @@
         top: 50%;
         transform: translateY(-50%);
         max-width: calc(100% - 4rem);
+        width: 100%;
+    }
+
+    &--light{
+        background: $light;
+        color: $primary-lighter;
+        padding-top: 120%;
     }
 }
