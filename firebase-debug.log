@@ -1,0 +1,13 @@
+[debug] [2020-08-19T17:50:56.119Z] ----------------------------------------------------------------------
+[debug] [2020-08-19T17:50:56.121Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2020-08-19T17:50:56.121Z] CLI Version:   8.7.0
+[debug] [2020-08-19T17:50:56.121Z] Platform:      darwin
+[debug] [2020-08-19T17:50:56.121Z] Node Version:  v12.18.0
+[debug] [2020-08-19T17:50:56.122Z] Time:          Wed Aug 19 2020 18:50:56 GMT+0100 (West Africa Standard Time)
+[debug] [2020-08-19T17:50:56.122Z] ----------------------------------------------------------------------
+[debug] [2020-08-19T17:50:56.122Z] 
+[debug] [2020-08-19T17:50:56.132Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-08-19T17:50:56.132Z] > authorizing via signed-in user
+[debug] [2020-08-19T17:50:56.132Z] [iam] checking project react-musixmatch for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-08-19T17:50:56.135Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/react-musixmatch:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

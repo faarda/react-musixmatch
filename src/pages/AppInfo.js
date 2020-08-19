@@ -20,7 +20,7 @@ function AppInfo() {
             <ul>
                 <li><span className='icon'>🗞</span> I do not own copyrights to the songs or lyrics used</li>
                 <li><span className='icon'>👨🏽‍💻</span> <span>You can find the source code to this on <a href='https://github.com/faarda/react-musixmatch' className='link link--dark' target='_blank'>Github <ExternalLink size={12} /></a></span></li>
-                <li><span className='icon'>🤘🏽</span> <span>I might write an article about this in the future, but right now <i>I don tire</i></span></li>
+                <li><span className='icon'>🤘🏽</span> <span>If your internet is bad the songs might take a little while to load</span></li>
                 <li><span className='icon'>❤️</span> <span>Made with ❤️ and lots of coke bottles - took me about 24hrs in total </span></li>
             </ul>
             
