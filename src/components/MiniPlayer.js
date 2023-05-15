@@ -19,7 +19,8 @@ function MiniPlayer({state, setState}) {
         const audio = new Audio(`/songs/${src}`);
 
         audio.addEventListener('loadedmetadata', e => {
-            const duration = e.path[0].duration;
+            // const duration = e.path[0].duration;
+            const duration = audio.duration
             // const currentTime = e.path[0].currentTime;
 
             // setState.currentTime(currentTime);
@@ -28,7 +29,8 @@ function MiniPlayer({state, setState}) {
         })
 
         audio.addEventListener('timeupdate', e => {
-            const currentTime = e.path[0].currentTime;
+            // const currentTime = e.path[0].currentTime;
+            const currentTime = audio.currentTime
 
             setState.currentTime(currentTime);
         })

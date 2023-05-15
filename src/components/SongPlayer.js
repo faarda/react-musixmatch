@@ -6,9 +6,9 @@ import { getSrc, formatTime} from './PlayerFunctions'
 function SongPlayer({song, storePlay, storePause, songId, prev, next, setAudio, setPausedAt, updateCurrentTime, updateLoading}) {
     const [state, setState] = createState({
         duration: 0,
-        currentTime: song.pausedAt || 0,
-        audio: song.audio,
-        isPlaying: song.isPlaying
+        currentTime: song?.pausedAt || 0,
+        audio: song?.audio,
+        isPlaying: song?.isPlaying
     });
 
     useEffect(() => {
@@ -16,15 +16,15 @@ function SongPlayer({song, storePlay, storePause, songId, prev, next, setAudio, 
 
         //retrieve audio from state if it exists else create a new instance
         if(song.audio){
-            audio = song.audio;
-            duration = audio.duration;
+            audio = song?.audio;
+            duration = audio?.duration;
 
             setState.duration(duration);
             setState.audio(audio);
             
             if(song.pausedAt > 0){
                 // setState.currentTime(song.currentTime)
-                audio.currentTime = song.pausedAt;
+                audio.currentTime = song?.pausedAt;
             }else{
                 audio.currentTime = 0;
             }
@@ -40,7 +40,11 @@ function SongPlayer({song, storePlay, storePause, songId, prev, next, setAudio, 
             audio = new Audio(`/songs/${src}`);
     
             audio.addEventListener('loadedmetadata', e => {
-                duration = e.path[0].duration;
+                // console.log(e)
+                // console.log(audio.duration)
+                // duration = e.path[0]?.duration;
+
+                duration = audio.duration;
     
                 setState.duration(duration);
                 setState.audio(audio);
@@ -57,7 +61,9 @@ function SongPlayer({song, storePlay, storePause, songId, prev, next, setAudio, 
         }
 
         audio.addEventListener('timeupdate', e => {
-            const currentTime = e.path[0].currentTime;
+            console.log(e)
+            // const currentTime = e.path[0].currentTime;
+            const currentTime = audio.currentTime;
 
             setState.currentTime(currentTime);
             updateCurrentTime(currentTime);
